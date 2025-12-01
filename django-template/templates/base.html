@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}My Site{% endblock %}</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="min-h-full flex flex-col">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-semibold tracking-wide text-gray-800">MySite</a>
+
+            <ul class="flex items-center gap-6 text-gray-600">
+                <li><a href="/" class="hover:text-gray-900">Home</a></li>
+                <li><a href="/about/" class="hover:text-gray-900">About</a></li>
+                <li><a href="/contact/" class="hover:text-gray-900">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- FLASH MESSAGES -->
+    {% if messages %}
+    <div class="max-w-4xl mx-auto mt-4">
+        {% for message in messages %}
+            <div class="p-4 mb-3 rounded 
+                        {% if message.tags == 'success' %}bg-green-100 text-green-800
+                        {% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-800
+                        {% elif message.tags == 'error' %}bg-red-100 text-red-800
+                        {% else %}bg-blue-100 text-blue-800{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-gray-300 py-6 mt-10">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p class="text-sm">&copy; {{ year|default:2025 }} MySite. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
